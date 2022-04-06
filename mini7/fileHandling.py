@@ -1,0 +1,5 @@
+file = open("data.txt", "r")
+read = file.read()
+words = read.split(" ")
+longest = max(words, key=len)
+print(longest)
