@@ -24,9 +24,9 @@ class adminOperation():
                     break
     def login(self):
         print("----Welcome to Admin login page----")
-        UserName=input("Enter USERNAME : ")
-        PassWord=input("Enter PASSWORD : ")
-        if UserName=="ADMIN" and PassWord=="123456":
+        UserName = input("Enter USERNAME : ")
+        PassWord = input("Enter PASSWORD : ")
+        if UserName == "ADMIN" and PassWord == "123456":
             return True
         return False
     def addMovie(self):
@@ -48,18 +48,6 @@ class adminOperation():
             lst.append(int(input("Capacity : ")))
             if a.movieTimings(lst):
                 writer.writerow(lst)
-                # a=adminOperation()
-                # TotalMoiveLength=a.movieLen(lst)
-                # FirstShow=a.firstShow(lst)
-                # lst.append(float(FirstShow)/60)
-                # num=a.showPossible(lst,TotalMoiveLength,FirstShow)
-                # #print("num =",num)
-                # if num!=0:
-                #     for i in range(1,lst[7]):
-                #         FirstShow+=TotalMoiveLength+lst[9]+lst[10]
-                #         lst.append(float(FirstShow)/60)
-                #     hell=FirstShow+TotalMoiveLength+lst[9]
-                #     lst.append(float(hell)/60)
 
     def movieTimings(self,lst):
         MovieShowTimings = []
@@ -120,7 +108,7 @@ class adminOperation():
         while(True):
             MovieName = input("Enter the movie name you want to edit or type EXIT if you don't want to edit : ")
             if(MovieName=="exit"):
-                print("redirecting to operations menu")
+                print("***redirecting to operations menu***")
                 break
             location = int(input(
                 "which field you want to edit :\n1.Titile \n2.Genre \n3.Length\n4.Cast\n5.Director\n6.Admin Rating\n7.Language\n8.Number of shows\n9.First show\n10.Interval Time\n11.Gap between shows\n12.Capcity\n:"))
@@ -149,8 +137,22 @@ class adminOperation():
                 lines.append(row)
                 for field in row:
                     if field == members:
+                        a = adminOperation()
+                        a.delShowTime(members)
                         lines.remove(row)
         with open('hello.csv', 'w', newline='') as writeFile:
+            writer = csv.writer(writeFile)
+            writer.writerows(lines)
+    def delShowTime(self,members):
+        lines = list()
+        with open('showTime.csv', 'r', newline='') as readFile:
+            reader = csv.reader(readFile)
+            for row in reader:
+                lines.append(row)
+                for field in row:
+                    if field == members:
+                        lines.remove(row)
+        with open('showTime.csv', 'w', newline='') as writeFile:
             writer = csv.writer(writeFile)
             writer.writerows(lines)
     def switch(self,lst,choise,data):
